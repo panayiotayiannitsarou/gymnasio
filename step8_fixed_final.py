@@ -1014,6 +1014,11 @@ class UnifiedProcessor:
         wb.close()
         print(f"✅ Optimized Excel: {output_path}")
     
+    def export_optimized_excel(self, swaps, spreads_after, output_path: str) -> None:
+        """Alias για export_results - συμβατότητα με app.py"""
+        # Το app περνάει swaps και spreads_after αλλά η export_results τα έχει ήδη
+        self.export_results(output_path)
+    
     def _write_team_sheet(self, ws: Worksheet, team_name: str) -> None:
         """Write team sheet."""
         headers = ['ΟΝΟΜΑ', 'ΦΥΛΟ', 'ΚΑΛΗ_ΓΝΩΣΗ_ΕΛΛΗΝΙΚΩΝ', 'ΕΠΙΔΟΣΗ', 'ΦΙΛΟΙ']
