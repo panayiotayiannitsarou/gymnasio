@@ -328,6 +328,14 @@ class UnifiedProcessor:
         
         # K2: Optimize EP5 (αδύναμοι)
         self._optimize_k2_ep5()
+    
+    def optimize(self, max_iterations: int = 100) -> tuple:
+        """Alias για optimize_dual_phase - συμβατότητα με app.py"""
+        self.max_iter_k1 = max_iterations
+        self.max_iter_k2 = max_iterations
+        self.optimize_dual_phase(dynamic_ep5=False)
+        # Return format expected by app: (swaps, spreads_after)
+        return (self.swaps_k1 + self.swaps_k2, self._calculate_spreads())
         
         print("\n🎉 Ολοκληρώθηκε!")
         print(f"  K1 swaps: {len(self.swaps_k1)}")
