@@ -933,6 +933,9 @@ class UnifiedProcessor:
             girls = sum(1 for name in self.teams[tn] if self.students[name].gender == 'Κ')
             greek_yes = sum(1 for name in self.teams[tn] if self.students[name].greek_knowledge == 'Ν')
             ep1 = self._count_choice(tn, 1)
+            ep2 = self._count_choice(tn, 2)
+            ep3 = self._count_choice(tn, 3)
+            ep4 = self._count_choice(tn, 4)
             ep5 = self._count_choice(tn, 5)
             
             stats[tn] = {
@@ -940,6 +943,9 @@ class UnifiedProcessor:
                 'girls': girls,
                 'greek_yes': greek_yes,
                 'ep1': ep1,
+                'ep2': ep2,
+                'ep3': ep3,
+                'ep4': ep4,
                 'ep5': ep5
             }
         return stats
@@ -952,6 +958,9 @@ class UnifiedProcessor:
         girls = [s['girls'] for s in stats.values()]
         greek_yes = [s['greek_yes'] for s in stats.values()]
         ep1 = [s['ep1'] for s in stats.values()]
+        ep2 = [s['ep2'] for s in stats.values()]
+        ep3 = [s['ep3'] for s in stats.values()]
+        ep4 = [s['ep4'] for s in stats.values()]
         ep5 = [s['ep5'] for s in stats.values()]
         
         return {
@@ -959,6 +968,9 @@ class UnifiedProcessor:
             'girls': max(girls) - min(girls),
             'greek_yes': max(greek_yes) - min(greek_yes),
             'ep1': max(ep1) - min(ep1),
+            'ep2': max(ep2) - min(ep2),
+            'ep3': max(ep3) - min(ep3),
+            'ep4': max(ep4) - min(ep4),
             'ep5': max(ep5) - min(ep5)
         }
     
