@@ -962,6 +962,10 @@ class UnifiedProcessor:
             'ep5': max(ep5) - min(ep5)
         }
     
+    def calculate_spreads(self) -> Dict[str, int]:
+        """Public wrapper για _calculate_spreads - συμβατότητα με app.py"""
+        return self._calculate_spreads()
+    
     # ==================== EXPORT ====================
     
     def export_results(self, output_path: str) -> None:
