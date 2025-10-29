@@ -67,7 +67,7 @@ class SwapRecord:
 
 # ========== MAIN PROCESSOR ==========
 
-class DualPhaseOptimizer:
+class UnifiedProcessor:
     """
     Dual-phase optimizer με σωστή κλίμακα:
     - Κ1: Optimizes EP1 (άριστοι)
@@ -1154,7 +1154,7 @@ def main():
     
     args = parser.parse_args()
     
-    processor = DualPhaseOptimizer()
+    processor = UnifiedProcessor()
     
     # Set targets from CLI
     processor.target_ep1 = args.target_ep1
