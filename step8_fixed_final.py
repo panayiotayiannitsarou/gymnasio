@@ -200,6 +200,32 @@ class UnifiedProcessor:
                 sheet.cell(row_idx, headers['ΦΥΛΟ'], sd.gender)
                 sheet.cell(row_idx, headers['ΚΑΛΗ_ΓΝΩΣΗ_ΕΛΛΗΝΙΚΩΝ'], sd.greek_knowledge)
                 sheet.cell(row_idx, headers['ΕΠΙΔΟΣΗ'], sd.choice)
+        
+        for sheet_name in wb.sheetnames:
+            if sheet_name in ['ΚΑΤΗΓΟΡΙΟΠΟΙΗΣΗ', 'SINGLE']:
+                continue
+            
+            sheet = wb[sheet_name]
+            headers = self._parse_headers(sheet)
+            
+            # Ensure columns exist
+            required = ['ΟΝΟΜΑ', 'ΦΥΛΟ', 'ΚΑΛΗ_ΓΝΩΣΗ_ΕΛΛΗΝΙΚΩΝ', 'ΕΠΙΔΟΣΗ', 'ΦΙΛΟΙ']
+            for col in required:
+                if col not in headers:
+                    next_col = sheet.max_column + 1
+                    sheet.cell(1, next_col, col)
+                    headers[col] = next_col
+            
+            team_students = []
+            for row_idx in range(2, sheet.max_row + 1):
+                name = self._get_cell_value(sheet, row_idx, headers.get('ΟΝΟΜΑ'))
+                if not name or name not in self.students_data:
+                    continue
+                
+                sd = self.students_data[name]
+                sheet.cell(row_idx, headers['ΦΥΛΟ'], sd.gender)
+                sheet.cell(row_idx, headers['ΚΑΛΗ_ΓΝΩΣΗ_ΕΛΛΗΝΙΚΩΝ'], sd.greek_knowledge)
+                sheet.cell(row_idx, headers['ΕΠΙΔΟΣΗ'], sd.choice)
                 sheet.cell(row_idx, headers['ΦΙΛΟΙ'], ', '.join(sd.friends))
                 team_students.append(name)
             
@@ -209,6 +235,10 @@ class UnifiedProcessor:
         wb.save(output_path)
         wb.close()
         print(f"✅ Filled: {output_path}")
+    
+    def fill_target_excel(self, template_path: str, output_path: str) -> None:
+        """Alias για fill_template - συμβατότητα με app.py"""
+        self.fill_template(template_path, output_path)
     
     # ==================== PHASE 2: LOAD ====================
     
